@@ -178,6 +178,16 @@ func TestNewInlineKeyboardButtonLoginURL(t *testing.T) {
 	}
 }
 
+func TestNewEditMessageTextAndMarkup(t *testing.T) {
+	edit := NewEditMessageTextAndMarkup(ChatID, ReplyToMessageID, "new text", NewInlineKeyboardMarkup(NewInlineKeyboardRow(NewInlineKeyboardButtonData("sometext", "data"))))
+
+	if edit.Text != "new text" ||
+		edit.BaseEdit.ChatID != ChatID ||
+		edit.BaseEdit.MessageID != ReplyToMessageID {
+		t.Fail()
+	}
+}
+
 func TestNewEditMessageText(t *testing.T) {
 	edit := NewEditMessageText(ChatID, ReplyToMessageID, "new text")
 
@@ -215,6 +225,16 @@ func TestNewEditMessageReplyMarkup(t *testing.T) {
 		t.Fail()
 	}
 
+}
+
+func TestNewEditMessageMedia(t *testing.T) {
+	edit := NewEditMessageMedia(ChatID, ReplyToMessageID, "new media")
+
+	if value, ok := edit.Media.(string); !ok || value != "new media" ||
+		edit.BaseEdit.ChatID != ChatID ||
+		edit.BaseEdit.MessageID != ReplyToMessageID {
+		t.Fail()
+	}
 }
 
 func TestNewDice(t *testing.T) {

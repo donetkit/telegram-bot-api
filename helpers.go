@@ -597,6 +597,37 @@ func NewEditMessageCaption(chatID int64, messageID int, caption string) EditMess
 	}
 }
 
+// https://github.com/go-telegram-bot-api/telegram-bot-api/pull/325/commits/cb321c15741527030da6b19e6dd15a6ff6eb1294
+//// NewEditMessageMedia allows you to edit the photo media
+//// TODO
+//// [ ] Support other media types as well
+//func NewEditMessageMedia(chatID int64, messageID int, fileID string) EditMessageMediaConfig {
+//	return EditMessageMediaConfig{
+//		BaseEdit: BaseEdit{
+//			ChatID:    chatID,
+//			MessageID: messageID,
+//		},
+//		Media: InputMediaPhoto{
+//			BaseInputMedia{
+//				Media: fileID,
+//				Type:  "photo",
+//			},
+//		},
+//	}
+//}
+
+// NewEditMessageMedia allows you to edit message media.
+// https://github.com/go-telegram-bot-api/telegram-bot-api/pull/529/commits/995a5e9672a8886dcfb7bf97c975e768f0e9bcf8
+func NewEditMessageMedia(chatID int64, messageID int, media interface{}) EditMessageMediaConfig {
+	return EditMessageMediaConfig{
+		BaseEdit: BaseEdit{
+			ChatID:    chatID,
+			MessageID: messageID,
+		},
+		Media: media,
+	}
+}
+
 // NewEditMessageReplyMarkup allows you to edit the inline
 // keyboard markup.
 func NewEditMessageReplyMarkup(chatID int64, messageID int, replyMarkup InlineKeyboardMarkup) EditMessageReplyMarkupConfig {
